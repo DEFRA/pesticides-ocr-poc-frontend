@@ -1,4 +1,5 @@
 import convict from 'convict'
+import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -11,11 +12,17 @@ const oneWeekMs = 604800000
 
 const isProduction = process.env.NODE_ENV === 'production'
 const isTest = process.env.NODE_ENV === 'test'
-const isDevelopment = process.env.NODE_ENV === 'development'
+const isDevelopment = process.env.NODE_ENV === 'dev'
 
 convict.addFormats(convictFormatWithValidator)
 
 export const config = convict({
+  environment: {
+    doc: 'The application environment',
+    format: ['dev', 'test', 'production'],
+    default: 'dev',
+    env: 'NODE_ENV'
+  },
   serviceVersion: {
     doc: 'The service version, this variable is injected into your docker container in CDP environments',
     format: String,
@@ -216,5 +223,12 @@ export const config = convict({
     }
   }
 })
+
+const env = config.get('environment')
+const envFile = path.join(dirname, `environments/${env}.json`)
+
+if (fs.existsSync(envFile)) {
+  config.loadFile(envFile)
+}
 
 config.validate({ allowed: 'strict' })

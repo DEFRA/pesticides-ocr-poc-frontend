@@ -4,7 +4,7 @@ import { home } from '../routes/home/index.js'
 import { about } from '../routes/about/index.js'
 import { health } from '../routes/health/index.js'
 import { serveStaticFiles } from './serve-static-files.js'
-import { config } from '#/config/config.js'
+import { config } from '../../config/config.js'
 
 export const router = {
   plugin: {

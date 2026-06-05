@@ -10,3 +10,6 @@ coverage
 .envrc
 tsconfig.tsbuildinfo
 .env
+.claude
+.github/copilot-*.md
+src/config/environments/*
