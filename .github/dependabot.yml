@@ -4,9 +4,9 @@ updates:
   # Update npm packages
   - package-ecosystem: npm
     directory: /
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 10
 
-    # Group packages into shared PR
+    # Group packages into shared PRs
     groups:
       dev:
         applies-to: 'version-updates'
@@ -26,6 +26,11 @@ updates:
         patterns:
           - '*'
 
+      security:
+        applies-to: 'security-updates'
+        patterns:
+          - '*'
+
     ignore:
       - dependency-name: 'eslint-*'
       - dependency-name: 'eslint'
@@ -42,37 +47,6 @@ updates:
     allow:
       # Include direct package.json updates
       - dependency-type: direct
-
-  # Update npm security fixes daily
-  - package-ecosystem: npm
-    directory: /
-    open-pull-requests-limit: 10
-
-    groups:
-      security:
-        applies-to: 'security-updates'
-        patterns:
-          - '*'
-
-    # Schedule security updates daily
-    schedule:
-      interval: daily
-      time: '05:00'
-      timezone: 'UTC'
-
-    versioning-strategy: increase
-
-    allow:
-      # Include direct package.json updates
-      - dependency-type: direct
-
-    # Ignore normal version updates in this daily block
-    ignore:
-      - dependency-name: '*'
-        update-types:
-          - 'version-update:semver-major'
-          - 'version-update:semver-minor'
-          - 'version-update:semver-patch'
 
   # Update GitHub Actions
   - package-ecosystem: github-actions
