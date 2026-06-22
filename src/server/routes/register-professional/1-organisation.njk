@@ -1,0 +1,65 @@
+{% extends 'layouts/page.njk' %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-xl">
+        Professional Registration
+        <span class="govuk-caption-xl govuk-!-padding-top-3"
+          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
+          iusto ex repellat possimus distinctio atque minima ab unde nobis.
+          Minus cum dolores quos mollitia libero.</span
+        >
+      </h1>
+    </div>
+  </div>
+
+  <form id="organisation-form" method="post">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Tell us about your organisation
+            </h1>
+          </legend>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="organisation-name">
+              Name of your organisation
+            </label>
+            <input
+              class="govuk-input"
+              id="organisation-name"
+              name="organisationName"
+              type="text"
+              autocomplete="organization"
+              spellcheck="false"
+              value=""
+              aria-describedby="organisation-name-hint"
+            />
+          </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="organisation-type">
+              Type of organisation
+            </label>
+            <select
+              class="govuk-select"
+              id="organisation-type"
+              name="organisationType"
+              aria-describedby="organisation-type-hint"
+            >
+              <option value="">Please select</option>
+              <option value="company">Company</option>
+              <option value="charity">Charity</option>
+              <option value="local-government">Local Government</option>
+            </select>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <button type="submit" class="govuk-button" data-module="govuk-button">
+      Save and continue
+    </button>
+  </form>
+{% endblock %}
