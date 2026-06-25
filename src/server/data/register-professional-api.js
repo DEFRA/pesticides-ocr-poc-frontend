@@ -19,7 +19,6 @@ async function Save(payload) {
       message: 'Form submitted successfully'
     })
   }
-
 }
 
 export { Save }
