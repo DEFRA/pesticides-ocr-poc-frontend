@@ -1,0 +1,9 @@
+.public
+package-lock.json
+node_modules
+coverage
+
+**/*.js
+**/*.cjs
+
+**/*.njk
