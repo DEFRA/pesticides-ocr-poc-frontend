@@ -1,6 +1,7 @@
 import Joi from 'joi'
 import { statusCodes } from '#/server/common/constants/status-codes.js'
 import { viewFailAction } from '#/server/common/helpers/view-fail-action.js'
+import { Save } from '#/server/data/register-professional-api.js'
 
 export const registerProfessionalOrganisation = {
   plugin: {
@@ -20,7 +21,7 @@ export const registerProfessionalOrganisation = {
         {
           method: 'POST',
           path: '/register-professional/organisation',
-          handler: (request, h) => {
+          handler: async (request, h) => {
             const { organisationName, organisationType } = request.payload
             const registerProfessional = request.yar.get('registerProfessional') ?? {}
           
@@ -29,7 +30,9 @@ export const registerProfessionalOrganisation = {
               organisation: { name: organisationName, type: organisationType }
             })
 
-            return h.response({ message: 'Form submitted successfully' }).code(statusCodes.ok)
+            return await Save(request.yar.get('registerProfessional'))
+              .then(response => h.view('register-professional/1-organisation'))
+              .catch(error => h.response({ message: error.message }).code(statusCodes.badRequest))
           },
           options: {
             validate: {
@@ -55,7 +58,3 @@ export const registerProfessionalOrganisation = {
   }
 }
 
-
-
-
-     
