@@ -98,6 +98,12 @@ export const config = convict({
         ? ['req.headers.authorization', 'req.headers.cookie', 'res.headers']
         : [],
       env: 'LOG_REDACT'
+    },
+    httpRequests: {
+      doc: 'Log HTTP requests',
+      format: Boolean,
+      default: isProduction,
+      env: 'LOG_HTTP_REQUESTS'
     }
   },
   httpProxy: {
