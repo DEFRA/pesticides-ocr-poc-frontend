@@ -3,6 +3,9 @@ import { statusCodes } from '#/server/common/constants/status-codes.js'
 import { viewFailAction } from '#/server/common/helpers/view-fail-action.js'
 import { Save } from '#/server/data/register-professional-api.js'
 
+const getView = 'register-professional/1-organisation'
+const postView = 'register-professional/1-organisation'
+
 export const registerProfessionalOrganisation = {
   plugin: {
     name: 'register-professional-organisation',
@@ -14,7 +17,7 @@ export const registerProfessionalOrganisation = {
           handler: (request, h) => {
             request.yar.set('registerProfessional', null)
 
-            return h.view('register-professional/1-organisation')
+            return h.view(getView)
           }
         },
         {
@@ -33,8 +36,11 @@ export const registerProfessionalOrganisation = {
             return await Save(request.yar.get('registerProfessional'))
               .then((response) => {
                 if (response.ok) {
-                  return h.view('register-professional/1-organisation')
+                  return h.view(postView)
                 }
+
+                return h.response({ message: 'Save failed' })
+                  .code(statusCodes.badRequest)
               })
               .catch((error) =>
                 h.response({ message: error.message })
@@ -56,7 +62,7 @@ export const registerProfessionalOrganisation = {
               options: {
                 abortEarly: false
               },
-              failAction: viewFailAction('register-professional/1-organisation')
+              failAction: viewFailAction(getView)
             }
           }
         }
