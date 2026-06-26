@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import { statusCodes } from '#/server/common/constants/status-codes.js'
 import { viewFailAction } from '#/server/common/helpers/view-fail-action.js'
-import { Save } from '#/server/data/register-professional-api.js'
+import { save } from '#/server/data/register-professional-api.js'
 
 const getView = 'register-professional/1-organisation'
 const postView = 'register-professional/1-organisation'
@@ -33,7 +33,7 @@ export const registerProfessionalOrganisation = {
               organisation: { name: organisationName, type: organisationType }
             })
 
-            return await Save(request.yar.get('registerProfessional'))
+            await save(request.yar.get('registerProfessional'))
               .then((response) => {
                 if (response.ok) {
                   return h.view(postView)

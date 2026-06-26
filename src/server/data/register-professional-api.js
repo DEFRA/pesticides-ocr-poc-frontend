@@ -1,6 +1,6 @@
 import { config } from '#/config/config.js'
 
-async function Save(payload) {
+async function save(payload) {
   // console.log('Payload:', payload)
   const url = config.get('backendUrl') + '/api/v1/register-professional'
 
@@ -15,4 +15,4 @@ async function Save(payload) {
   return response
 }
 
-export { Save }
+export { save }
