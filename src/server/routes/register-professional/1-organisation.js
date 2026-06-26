@@ -15,9 +15,13 @@ export const registerProfessionalOrganisation = {
           method: 'GET',
           path: '/register-professional/organisation',
           handler: (request, h) => {
-            request.yar.set('registerProfessional', null)
+            const registerProfessional = request.yar.get('registerProfessional')
 
-            return h.view(getView)
+            if (!registerProfessional) {
+              request.yar.set('registerProfessional', null)
+            }
+
+            return h.view(getView, { registerProfessional })
           }
         },
         {
