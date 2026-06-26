@@ -31,9 +31,11 @@ export const registerProfessionalOrganisation = {
             })
 
             return await Save(request.yar.get('registerProfessional'))
-              .then((response) =>
-                h.view('register-professional/1-organisation')
-              )
+              .then((response) => {
+                if (response.ok) {
+                  return h.view('register-professional/1-organisation')
+                }
+              })
               .catch((error) =>
                 h.response({ message: error.message })
                   .code(statusCodes.badRequest)

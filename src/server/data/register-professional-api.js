@@ -1,24 +1,18 @@
+import { config } from '#/config/config.js'
+
 async function Save(payload) {
-  // const url = ''
+  // console.log('Payload:', payload)
+  const url = config.get('backendUrl') + '/api/v1/register-professional'
 
-  // const response = await fetch(url, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(payload)
-  // })
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
 
-  // return response
-
-  console.log('Payload:', payload)
-
-  return {
-    status: 200,
-    json: async () => ({
-      message: 'Form submitted successfully'
-    })
-  }
+  return response
 }
 
 export { Save }

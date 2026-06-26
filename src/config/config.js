@@ -29,6 +29,12 @@ export const config = convict({
     default: '0.0.0.0',
     env: 'HOST'
   },
+  backendUrl: {
+    doc: 'Base URL of the backend API',
+    format: String,
+    default: 'http://localhost:3001',
+    env: 'BACKEND_URL'
+  },
   port: {
     doc: 'The port to bind.',
     format: 'port',
