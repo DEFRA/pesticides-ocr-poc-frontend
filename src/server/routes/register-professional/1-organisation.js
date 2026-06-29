@@ -1,3 +1,4 @@
+import Boom from '@hapi/boom'
 import Joi from 'joi'
 import { statusCodes } from '#/server/common/constants/status-codes.js'
 import { viewFailAction } from '#/server/common/helpers/view-fail-action.js'
@@ -42,19 +43,18 @@ export const registerProfessionalOrganisation = {
               organisation: { name: organisationName, type: organisationType }
             })
 
-            return save(request.yar.get('registerProfessional'))
-              .then((response) => {
-                if (response.ok) {
-                  return h.view(postView)
-                }
+            try {
+              const response = await save(request.yar.get('registerProfessional'))
 
-                return h.response({ message: 'Save failed' })
-                  .code(statusCodes.badRequest)
-              })
-              .catch((error) =>
-                h.response({ message: error.message })
-                  .code(statusCodes.badRequest)
-              )
+              if (response.ok) {
+                return h.view(postView)
+              }
+
+              return h.response({ message: 'Save failed' })
+                .code(statusCodes.badRequest)
+            } catch (error) {
+              throw Boom.internal(error.message, error)
+            }
           },
           options: {
             validate: {
