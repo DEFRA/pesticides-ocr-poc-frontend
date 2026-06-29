@@ -21,7 +21,12 @@ export const registerProfessionalOrganisation = {
               request.yar.set('registerProfessional', null)
             }
 
-            return h.view(getView, { registerProfessional })
+            const values = {
+              organisationName: registerProfessional?.organisation?.name,
+              organisationType: registerProfessional?.organisation?.type
+            }
+
+            return h.view(getView, { values })
           }
         },
         {

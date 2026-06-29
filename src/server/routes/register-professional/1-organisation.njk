@@ -54,7 +54,7 @@
             type="text"
             autocomplete="organization"
             spellcheck="false"
-            value="{{ registerProfessional.organisation.name }}"
+            value="{{ values.organisationName }}"
             aria-describedby="organisation-name-hint" />
         </div>
         <div
@@ -74,9 +74,9 @@
             name="organisationType"
             aria-describedby="organisation-type-hint">
             <option value="">Please select</option>
-            <option value="company" {% if registerProfessional.organisation.type=='company' %}selected{% endif %}>Company</option>
-            <option value="charity" {% if registerProfessional.organisation.type=='charity' %}selected{% endif %}>Charity</option>
-            <option value="local-government" {% if registerProfessional.organisation.type=='local-government' %}selected{% endif %}>Local Government</option>
+            <option value="company" {% if values.organisationType=='company' %}selected{% endif %}>Company</option>
+            <option value="charity" {% if values.organisationType=='charity' %}selected{% endif %}>Charity</option>
+            <option value="local-government" {% if values.organisationType=='local-government' %}selected{% endif %}>Local Government</option>
           </select>
         </div>
       </fieldset>
