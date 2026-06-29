@@ -42,7 +42,7 @@ export const registerProfessionalOrganisation = {
               organisation: { name: organisationName, type: organisationType }
             })
 
-            await save(request.yar.get('registerProfessional'))
+            return save(request.yar.get('registerProfessional'))
               .then((response) => {
                 if (response.ok) {
                   return h.view(postView)
