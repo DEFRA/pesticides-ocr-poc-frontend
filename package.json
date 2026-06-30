@@ -13,8 +13,8 @@
     "dev": "AWS_EMF_ENVIRONMENT=Local npm run server:watch",
     "dev:debug": "AWS_EMF_ENVIRONMENT=Local npm run server:debug",
     "docker:dev": "npm run dev",
-    "format": "prettier --write \"src/**/*.js\" \"**/*.{js,cjs,md,json,config.js,test.js}\"",
-    "format:check": "prettier --check \"src/**/*.js\" \"**/*.{js,cjs,md,json,config.js,test.js}\"",
+    "format": "prettier --write \"**/*.{md,json}\" && npm run lint:js:fix && npm run lint:scss",
+    "format:check": "prettier --check \"**/*.{md,json}\"",
     "git:pre-commit-hook": "npm run security-audit && npm run format:check && npm run lint && npm test",
     "lint": "run-s lint:js lint:scss",
     "lint:js": "eslint .",
@@ -27,6 +27,7 @@
     "server:debug": "nodemon --inspect-brk=0.0.0.0 --ext js,json --legacy-watch --watch ./src/server --watch ./src/config --env-file-if-exists=.env ./src",
     "prestart": "npm run build:frontend",
     "start": "NODE_ENV=production node .",
+    "prepare": "npm run setup:husky",
     "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module"
   },
   "imports": {
@@ -41,6 +42,7 @@
     "@defra/hapi-secure-context": "0.4.0",
     "@defra/hapi-tracing": "1.30.0",
     "@elastic/ecs-pino-format": "1.5.0",
+    "@hapi/boom": "10.0.1",
     "@hapi/catbox-memory": "6.0.2",
     "@hapi/catbox-redis": "7.0.2",
     "@hapi/hapi": "21.4.9",

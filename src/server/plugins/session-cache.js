@@ -15,6 +15,7 @@ export const sessionCache = {
       cache: sessionConfig.cache.name,
       expiresIn: sessionConfig.cache.ttl
     },
+    maxCookieSize: 0,
     storeBlank: false,
     errorOnCacheNotReady: true,
     cookieOptions: {

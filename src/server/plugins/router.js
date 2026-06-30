@@ -1,10 +1,10 @@
 import inert from '@hapi/inert'
 
 import { home } from '../routes/home/index.js'
-import { about } from '../routes/about/index.js'
 import { health } from '../routes/health/index.js'
 import { serveStaticFiles } from './serve-static-files.js'
 import { config } from '#/config/config.js'
+import { registerProfessionalOrganisation } from '../routes/register-professional/1-organisation.js'
 
 export const router = {
   plugin: {
@@ -16,7 +16,7 @@ export const router = {
       await server.register([health])
 
       // Application specific routes, add your own routes here
-      await server.register([home, about])
+      await server.register([home, registerProfessionalOrganisation])
 
       // Static assets
       if (!config.get('isProduction') && !config.get('isTest')) {

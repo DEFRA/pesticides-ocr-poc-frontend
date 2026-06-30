@@ -1,17 +1,24 @@
 {% extends 'layouts/page.njk' %}
 
 {% block content %}
-  {{ appHeading({
-    text: heading,
-    caption: "pesticides-ocr-poc-frontend"
-  }) }}
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <div class="govuk-body" data-testid="app-page-body">
-        <p></p>
-      </div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Home</h1>
+  </div>
+
+  <div class="govuk-grid-column-full">
+    <div class="govuk-body" data-testid="app-page-body">
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate, magnam ex dolorem rem vero ullam facere ea
+        ad accusantium. Cupiditate assumenda labore tenetur inventore eaque cumque sed aspernatur repudiandae illum a
+        voluptas quas, exercitationem voluptatibus quod ipsum quidem. Possimus ullam laudantium animi totam, dolorum
+        voluptas. Esse vitae voluptates dicta reiciendis.
+      </p>
+
+      <a href="/register-professional/organisation" class="govuk-button" data-module="govuk-button">Start</a>
     </div>
   </div>
+</div>
 
 {% endblock %}
