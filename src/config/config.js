@@ -78,6 +78,12 @@ export const config = convict({
     format: Boolean,
     default: isTest
   },
+  simulateBackend: {
+    doc: 'Simulate backend responses for development and testing',
+    format: Boolean,
+    default: false,
+    env: 'SIMULATE_BACKEND'
+  },
   log: {
     enabled: {
       doc: 'Is logging enabled',
