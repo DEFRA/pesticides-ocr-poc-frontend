@@ -6,12 +6,11 @@ async function save(payload) {
 
   if (config.get('simulateBackend') && config.get('isDevelopment')) {
     console.log('Simulating 201 response for development.')
-    const response = {
+    return {
       status: 201,
       ok: true,
       json: async () => ({ message: 'Backend is down, Simulating a successful response.' })
     }
-    return response
   }
 
   const response = await fetch(url, {
