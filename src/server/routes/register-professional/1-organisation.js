@@ -1,8 +1,5 @@
-import Boom from '@hapi/boom'
 import Joi from 'joi'
-import { statusCodes } from '#/server/common/constants/status-codes.js'
 import { viewFailAction } from '#/server/common/helpers/view-fail-action.js'
-import { save } from '#/server/data/register-professional-api.js'
 
 const basePath = 'register-professional'
 const getView = `${basePath}/1-organisation`
@@ -44,18 +41,7 @@ export const registerProfessionalOrganisation = {
               organisation: { name: organisationName, type: organisationType }
             })
 
-            try {
-              const response = await save(request.yar.get('registerProfessional'))
-
-              if (response.ok) {
-                return h.redirect(postView)
-              }
-
-              return h.response({ message: 'Save failed' })
-                .code(statusCodes.badRequest)
-            } catch (error) {
-              throw Boom.internal(error.message, error)
-            }
+            return h.redirect(postView)
           },
           options: {
             validate: {
