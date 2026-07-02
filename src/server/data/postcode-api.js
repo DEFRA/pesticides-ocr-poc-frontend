@@ -1,5 +1,5 @@
 async function find(postcode) {
-  const url = 'http://api.postcodes.io/postcodes/' + postcode
+  const url = 'https://api.postcodes.io/postcodes/' + postcode
 
   const response = await fetch(url, {
     method: 'GET',
