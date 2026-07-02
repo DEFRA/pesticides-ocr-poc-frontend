@@ -1,11 +1,9 @@
-import Boom from '@hapi/boom'
 import Joi from 'joi'
-import { statusCodes } from '#/server/common/constants/status-codes.js'
 import { viewFailAction } from '#/server/common/helpers/view-fail-action.js'
-import { save } from '#/server/data/register-professional-api.js'
 
-const getView = 'register-professional/1-organisation'
-const postView = 'register-professional/1-organisation'
+const basePath = 'register-professional'
+const getView = `${basePath}/1-organisation`
+const postView = `/${basePath}/organisation-address#`
 
 export const registerProfessionalOrganisation = {
   plugin: {
@@ -14,7 +12,7 @@ export const registerProfessionalOrganisation = {
       server.route([
         {
           method: 'GET',
-          path: '/register-professional/organisation',
+          path: `/${basePath}/organisation`,
           handler: (request, h) => {
             const registerProfessional = request.yar.get('registerProfessional')
 
@@ -32,7 +30,7 @@ export const registerProfessionalOrganisation = {
         },
         {
           method: 'POST',
-          path: '/register-professional/organisation',
+          path: `/${basePath}/organisation`,
           handler: async (request, h) => {
             const { organisationName, organisationType } = request.payload
             const registerProfessional =
@@ -43,18 +41,7 @@ export const registerProfessionalOrganisation = {
               organisation: { name: organisationName, type: organisationType }
             })
 
-            try {
-              const response = await save(request.yar.get('registerProfessional'))
-
-              if (response.ok) {
-                return h.view(postView)
-              }
-
-              return h.response({ message: 'Save failed' })
-                .code(statusCodes.badRequest)
-            } catch (error) {
-              throw Boom.internal(error.message, error)
-            }
+            return h.redirect(postView)
           },
           options: {
             validate: {
