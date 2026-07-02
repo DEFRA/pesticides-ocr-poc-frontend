@@ -1,0 +1,79 @@
+{% extends 'layouts/page.njk' %}
+
+{% block content %}
+
+{% if errorList.length %}
+<div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">There is a problem</h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        {% for item in errorList %}
+        <li><a href="{{ item.href }}">{{ item.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<form id="organisation-address-form" method="post">
+  <fieldset class="govuk-fieldset govuk-!-margin-top-6">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-fieldset__heading">What is your primary address?</h1>
+    </legend>
+    <div id="example-hint" class="govuk-hint">
+      This is the main address of your organisation. You can add more addresses later if you need to.
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-form-group govuk-!-margin-top-6 {% if errors.addressLine1 %}govuk-form-group--error{% endif %}">
+          <label class="govuk-label" for="address-line-1">Address line 1</label>
+          {% if errors.addressLine1 %}
+          <p id="addressLine1-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{ errors.addressLine1.text }}
+          </p>
+          {% endif %}
+          <input class="govuk-input {% if errors.addressLine1 %}govuk-input--error{% endif %}" id="address-line-1" name="addressLine1" type="text" value="{{ values.addressLine1 }}" autocomplete="address-line1">
+        </div>
+
+        <div class="govuk-form-group {% if errors.addressLine2 %}govuk-form-group--error{% endif %}">
+          <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+          <input class="govuk-input {% if errors.addressLine2 %}govuk-input--error{% endif %}" id="address-line-2" name="addressLine2" type="text" value="{{ values.addressLine2 }}" autocomplete="address-line2">
+        </div>
+
+        <div class="govuk-form-group {% if errors.addressCity %}govuk-form-group--error{% endif %}"><label class="govuk-label" for="address-city">Town or city</label>
+          {% if errors.addressCity %}
+          <p id="addressCity-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{ errors.addressCity.text }}
+          </p>
+          {% endif %}
+          <input class="govuk-input govuk-!-width-two-thirds {% if errors.addressCity %}govuk-input--error{% endif %}" id="address-city" name="addressCity" type="text" value="{{ values.addressCity }}" autocomplete="address-level2">
+        </div>
+
+        <div class="govuk-form-group {% if errors.addressCounty %}govuk-form-group--error{% endif %}"><label class="govuk-label" for="address-county">County (optional)</label>
+          <input class="govuk-input govuk-!-width-two-thirds {% if errors.addressCounty %}govuk-input--error{% endif %}" id="address-county" name="addressCounty" type="text" value="{{ values.addressCounty }}" autocomplete="address-level1">
+        </div>
+
+        <div class="govuk-form-group {% if errors.addressPostcode %}govuk-form-group--error{% endif %}">
+          <label class="govuk-label" for="address-postcode">Postcode</label>
+          {% if errors.addressPostcode %}
+          <p id="addressPostcode-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{ errors.addressPostcode.text }}
+          </p>
+          {% endif %}
+          <input class="govuk-input govuk-input--width-10 {% if errors.addressPostcode %}govuk-input--error{% endif %}" id="address-postcode" name="addressPostcode" type="text" value="{{ values.addressPostcode }}" autocomplete="postal-code">
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <button type="submit" class="govuk-button" data-module="govuk-button">
+    Continue
+  </button>
+</form>
+{% endblock %}
