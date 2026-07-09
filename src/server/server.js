@@ -58,7 +58,7 @@ export async function createServer() {
     requestLogger,
     requestTracing,
     metrics,
-    secureContext,
+    ...(config.get('isSecureContextEnabled') ? [secureContext] : []),
     pulse,
     sessionCache,
     nunjucksConfig,
