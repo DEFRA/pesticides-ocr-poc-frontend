@@ -1,13 +1,13 @@
 import { getHandler, postHandler } from './controller.js'
 import { options } from './options.js'
 
-const urlPath = '/register-professional/organisation-address'
-const getView = 'register-professional/2-organisation-address/organisation-address'
-const postView = '/register-professional/business-sector#'
+const urlPath = '/register-professional/business-sector'
+const getView = 'register-professional/3-business-sector/business-sector'
+const postView = `${urlPath}#`
 
-export const registerProfessionalOrganisationAddress = {
+export const registerProfessionalBusinessSector = {
   plugin: {
-    name: 'register-professional-organisation-address',
+    name: 'register-professional-business-sector',
     register (server) {
       server.route([
         {
@@ -18,7 +18,7 @@ export const registerProfessionalOrganisationAddress = {
         {
           method: 'POST',
           path: urlPath,
-          ...postHandler(getView, postView),
+          ...postHandler(postView),
           ...options(getView)
         }
       ])

@@ -1,0 +1,95 @@
+{% extends 'layouts/page.njk' %}
+
+{% block content %}
+
+{% if errorList.length %}
+<div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">There is a problem</h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        {% for item in errorList %}
+        <li><a href="{{ item.href }}">{{ item.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% set otherSelected = values.businessSectors and 'other' in values.businessSectors %}
+
+<form id="business-sector-form" method="post">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-form-group govuk-!-margin-top-6 {% if errors.businessSectors %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset" aria-describedby="business-sectors-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">Which sectors does your business operate in?</h1>
+          </legend>
+          <div id="business-sectors-hint" class="govuk-hint">
+            Select all that apply.
+          </div>
+          {% if errors.businessSectors %}
+          <p id="businessSectors-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{ errors.businessSectors.text }}
+          </p>
+          {% endif %}
+
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="business-sectors" name="businessSectors" type="checkbox" value="agriculture" {% if values.businessSectors and 'agriculture' in values.businessSectors %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="business-sectors">Agriculture</label>
+            </div>
+
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="business-sectors-2" name="businessSectors" type="checkbox" value="horticulture" {% if values.businessSectors and 'horticulture' in values.businessSectors %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="business-sectors-2">Horticulture</label>
+            </div>
+
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="business-sectors-3" name="businessSectors" type="checkbox" value="forestry" {% if values.businessSectors and 'forestry' in values.businessSectors %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="business-sectors-3">Forestry</label>
+            </div>
+
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="business-sectors-4" name="businessSectors" type="checkbox" value="public maintenance" {% if values.businessSectors and 'public maintenance' in values.businessSectors %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="business-sectors-4">Public Maintenance</label>
+            </div>
+
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="business-sectors-5" name="businessSectors" type="checkbox" value="water management" {% if values.businessSectors and 'water management' in values.businessSectors %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="business-sectors-5">Water Management</label>
+            </div>
+
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="business-sectors-6" name="businessSectors" type="checkbox" value="other" data-aria-controls="conditional-other-sector" {% if otherSelected %}checked{% endif %}>
+              <label class="govuk-label govuk-checkboxes__label" for="business-sectors-6">Other</label>
+            </div>
+
+            <div class="govuk-checkboxes__conditional {% if not otherSelected %}govuk-checkboxes__conditional--hidden{% endif %}" id="conditional-other-sector">
+              <div class="govuk-form-group {% if errors.otherSector %}govuk-form-group--error{% endif %}">
+                <label class="govuk-label" for="other-sector">
+                  Which other sector does your business operate in?
+                </label>
+                {% if errors.otherSector %}
+                <p id="otherSector-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span>
+                  {{ errors.otherSector.text }}
+                </p>
+                {% endif %}
+                <input class="govuk-input govuk-!-width-two-thirds {% if errors.otherSector %}govuk-input--error{% endif %}" id="other-sector" name="otherSector" type="text" value="{{ values.otherSector }}">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="govuk-button" data-module="govuk-button">
+    Continue
+  </button>
+</form>
+{% endblock %}
