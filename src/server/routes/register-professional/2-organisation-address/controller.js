@@ -1,7 +1,4 @@
-import Boom from '@hapi/boom'
-import { statusCodes } from '#/server/common/constants/status-codes.js'
 import { addFormErrors } from '../../../common/helpers/add-form-errors.js'
-import { save } from '#/server/data/register-professional-api.js'
 import { find } from '#/server/data/postcode-api.js'
 
 export const getHandler = (getView) => ({
@@ -52,17 +49,6 @@ export const postHandler = (getView, postView) => ({
       })
     }
 
-    try {
-      const response = await save(request.yar.get('registerProfessional'))
-
-      if (response.ok) {
-        return h.redirect(postView)
-      }
-
-      return h.response({ message: 'Save failed' })
-        .code(statusCodes.badRequest)
-    } catch (error) {
-      throw Boom.internal(error.message, error)
-    }
+    return h.redirect(postView)
   }
 })
