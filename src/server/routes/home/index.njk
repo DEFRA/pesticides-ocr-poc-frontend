@@ -4,19 +4,22 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Home</h1>
-  </div>
+    <h1 class="govuk-heading-xl">{{ heading }}</h1>
 
-  <div class="govuk-grid-column-full">
     <div class="govuk-body" data-testid="app-page-body">
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate, magnam ex dolorem rem vero ullam facere ea
-        ad accusantium. Cupiditate assumenda labore tenetur inventore eaque cumque sed aspernatur repudiandae illum a
-        voluptas quas, exercitationem voluptatibus quod ipsum quidem. Possimus ullam laudantium animi totam, dolorum
-        voluptas. Esse vitae voluptates dicta reiciendis.
-      </p>
-
-      <a href="/register-professional/organisation" class="govuk-button" data-module="govuk-button">Start</a>
+      {% if session.isAuthenticated %}
+        <p>You are signed in as <strong>{{ session.name }}</strong> ({{ session.roleLabel or session.role }}).</p>
+        <p>
+          <a class="govuk-link" href="/auth/account">View your account</a>
+          or <a class="govuk-link" href="/auth/sign-out">sign out</a>.
+        </p>
+      {% else %}
+        <p>Sign in to the service as:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li><a class="govuk-link" href="/auth/entra/sign-in" data-testid="home-staff-sign-in">Case officers (DEFRA/HSE)</a></li>
+          <li><a class="govuk-link" href="/auth/defra-id/sign-in" data-testid="home-applicant-sign-in">Applicants (external users)</a></li>
+        </ul>
+      {% endif %}
     </div>
   </div>
 </div>

@@ -1,12 +1,15 @@
+import { getAuthSession } from '@defra/hapi-oidc-auth'
+
 /**
- * A GDS styled example home page controller.
- * Provided as an example, remove or modify as required.
+ * Home / sign-in chooser. Shows the signed-in state (name/role + account/sign-out)
+ * or the two sign-in options (case officer via Entra, applicant via Defra ID).
  */
 export const homeController = {
-  handler(_request, h) {
+  handler(request, h) {
     return h.view('home/index', {
       pageTitle: 'Home',
-      heading: 'Home'
+      heading: 'OCR Register',
+      session: getAuthSession(request)
     })
   }
 }

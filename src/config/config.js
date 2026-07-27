@@ -225,6 +225,90 @@ export const config = convict({
       default: isDevelopment
     }
   },
+  auth: {
+    // Applicant sign-in via Defra Customer Identity (Azure AD B2C). Passed to
+    // @defra/hapi-oidc-auth as its `defraId` option. Defaults to mock.
+    defraId: {
+      mode: {
+        doc: 'defra-id auth mode: mock (local) or live',
+        format: ['mock', 'live'],
+        default: 'mock',
+        env: 'DEFRA_ID_AUTH_MODE'
+      },
+      wellKnownUrl: {
+        doc: 'OIDC discovery document URL',
+        format: String,
+        default: '',
+        env: 'DEFRA_ID_WELL_KNOWN_URL'
+      },
+      clientId: {
+        doc: 'Relying-party client id',
+        format: String,
+        default: '',
+        env: 'DEFRA_ID_CLIENT_ID'
+      },
+      clientSecret: {
+        doc: 'Confidential-client secret - CDP Secrets only, never committed',
+        format: String,
+        default: '',
+        sensitive: true,
+        env: 'DEFRA_ID_CLIENT_SECRET'
+      },
+      serviceId: {
+        doc: 'Defra Identity service id',
+        format: String,
+        default: '',
+        env: 'DEFRA_ID_SERVICE_ID'
+      },
+      policy: {
+        doc: 'B2C policy name',
+        format: String,
+        default: '',
+        env: 'DEFRA_ID_POLICY'
+      },
+      publicBaseUrl: {
+        doc: 'Public origin used to build the redirect URI',
+        format: String,
+        default: '',
+        env: 'DEFRA_ID_PUBLIC_BASE_URL'
+      }
+    },
+    // Case-officer sign-in via Microsoft Entra ID. Passed to @defra/hapi-oidc-auth
+    // as its `entra` option.
+    entra: {
+      mode: {
+        doc: 'entra auth mode: mock (local) or live',
+        format: ['mock', 'live'],
+        default: 'mock',
+        env: 'ENTRA_AUTH_MODE'
+      },
+      tenantId: {
+        doc: 'Entra directory (tenant) id',
+        format: String,
+        default: '',
+        env: 'ENTRA_TENANT_ID'
+      },
+      clientId: {
+        doc: 'App-registration client id',
+        format: String,
+        default: '',
+        env: 'ENTRA_CLIENT_ID'
+      },
+      clientSecret: {
+        doc: 'Confidential-client secret - CDP Secrets only, never committed',
+        format: String,
+        default: '',
+        sensitive: true,
+        env: 'ENTRA_CLIENT_SECRET'
+      },
+      publicBaseUrl: {
+        doc: 'Public origin used to build the redirect URI',
+        format: String,
+        default: '',
+        env: 'ENTRA_PUBLIC_BASE_URL'
+      }
+    }
+  },
   tracing: {
     header: {
       doc: 'Which header to track',

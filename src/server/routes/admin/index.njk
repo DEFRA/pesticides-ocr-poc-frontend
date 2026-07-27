@@ -1,0 +1,21 @@
+{% extends 'layouts/page.njk' %}
+
+{% block content %}
+  {{ appHeading({
+    text: heading,
+    caption: caption
+  }) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-body" data-testid="app-page-body">
+        <p>Signed in as <strong>{{ session.name }}</strong> ({{ session.roleLabel or session.role }}).</p>
+        <p>
+          <a class="govuk-link" href="/auth/account">View your account</a>
+          or <a class="govuk-link" href="/auth/sign-out">sign out</a>.
+        </p>
+        <p>The OCR Register applications list will appear here. This view is a placeholder for the case-officer sign-in POC.</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
