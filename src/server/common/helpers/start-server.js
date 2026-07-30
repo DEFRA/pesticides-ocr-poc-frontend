@@ -1,29 +1,6 @@
-import { readFileSync } from 'node:fs'
-import { parseEnv } from 'node:util'
-
 import { createServer } from '../../server.js'
 import { config } from '../../../config/config.js'
-
-function logEnvFile(logger) {
-  let contents
-  try {
-    contents = readFileSync('.env', 'utf8')
-
-    if (contents === '') {
-      logger.info('No env overrides found')
-      return
-    }
-  } catch {
-    logger.info('No .env file found')
-    return
-  }
-
-  // Log only the names of overridden variables, never their values: the .env
-  // file can hold secrets (e.g. SESSION_COOKIE_PASSWORD, ENTRA_CLIENT_SECRET)
-  // and CDP ships application logs centrally.
-  const overriddenKeys = Object.keys(parseEnv(contents))
-  logger.info({ overriddenKeys }, 'Overridden environment variables')
-}
+import { logEnvFile } from './log-env-file.js'
 
 async function startServer() {
   const server = await createServer()
