@@ -32,8 +32,12 @@
 
   {{ govukServiceNavigation({
     serviceName: "OCR POC",
-    serviceUrl: "/"
-  }) }} 
+    serviceUrl: "/",
+    navigation: [
+      { href: account.accountUrl, text: account.name },
+      { href: account.signOutUrl, text: "Sign out" }
+    ] if account else []
+  }) }}
 
 {% endblock %}
 

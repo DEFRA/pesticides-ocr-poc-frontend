@@ -1,4 +1,5 @@
 import inert from '@hapi/inert'
+import { hapiOidcAuth } from '@defra/hapi-oidc-auth'
 import routes from '../routes/routes.js'
 import { health } from '../routes/health/index.js'
 import { serveStaticFiles } from './serve-static-files.js'
@@ -12,6 +13,22 @@ export const router = {
 
       // Health-check route. Used by platform to check if service is running, do not remove!
       await server.register([health])
+
+      // Shared DEFRA sign-in (applicant + case officer) via @defra/hapi-oidc-auth.
+      // Config comes from the host; the plugin holds no secrets. defraId runs in
+      // mock for now; entra (case officer) is live per environment.
+      await server.register({
+        plugin: hapiOidcAuth,
+        options: {
+          defraId: config.get('auth.defraId'),
+          entra: config.get('auth.entra'),
+          redirects: {
+            applicant: '/register-professional/organisation',
+            caseOfficer: '/admin/applications',
+            signOut: '/'
+          }
+        }
+      })
 
       // Application specific routes, add your own routes here
       await server.register(routes)
