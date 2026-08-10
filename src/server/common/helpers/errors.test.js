@@ -123,4 +123,43 @@ describe('#catchAll', () => {
       statusCodes.internalServerError
     )
   })
+
+  test('Should provide expected "Unprocessable request" page', () => {
+    catchAll(mockRequest(statusCodes.unprocessableEntity), mockToolkit)
+
+    expect(mockToolkitView).toHaveBeenCalledWith(errorPage, {
+      pageTitle: 'Unprocessable request',
+      heading: statusCodes.unprocessableEntity,
+      message: 'Unprocessable request'
+    })
+    expect(mockToolkitCode).toHaveBeenCalledWith(
+      statusCodes.unprocessableEntity
+    )
+  })
+
+  // @defra/hapi-oidc-auth throws plain Errors with a numeric statusCode (e.g.
+  // 422 on a bad OIDC state/nonce). Hapi boomifies those to 500; resolveStatusCode
+  // recovers the intended status from response.statusCode.
+  test('Should recover the thrown status when Hapi defaulted a non-Boom throw to 500', () => {
+    const recoverableRequest = {
+      response: {
+        isBoom: true,
+        stack: mockStack,
+        statusCode: statusCodes.unprocessableEntity,
+        output: { statusCode: statusCodes.internalServerError }
+      },
+      logger: { error: mockErrorLogger }
+    }
+
+    catchAll(recoverableRequest, mockToolkit)
+
+    expect(mockToolkitView).toHaveBeenCalledWith(errorPage, {
+      pageTitle: 'Unprocessable request',
+      heading: statusCodes.unprocessableEntity,
+      message: 'Unprocessable request'
+    })
+    expect(mockToolkitCode).toHaveBeenCalledWith(
+      statusCodes.unprocessableEntity
+    )
+  })
 })

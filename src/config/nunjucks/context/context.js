@@ -1,6 +1,8 @@
 import path from 'node:path'
 import { readFileSync } from 'node:fs'
 
+import { buildAccount } from '@defra/hapi-oidc-auth'
+
 import { config } from '#/config/config.js'
 import { buildNavigation } from './build-navigation.js'
 import { createLogger } from '#/server/common/helpers/logging/logger.js'
@@ -29,6 +31,8 @@ export function context(request) {
     serviceUrl: '/',
     breadcrumbs: [],
     navigation: buildNavigation(request),
+    // Signed-in name/role + sign-out for the header, from @defra/hapi-oidc-auth.
+    account: buildAccount(request),
     getAssetPath(asset) {
       if (!config.get('isProduction')) {
         return `${assetPath}/${asset}`
