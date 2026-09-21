@@ -68,7 +68,7 @@
     "undici": "8.10.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.29.7",
+    "@babel/preset-env": "8.0.5",
     "@defra/hapi-connect": "1.0.1",
     "@vitest/coverage-v8": "4.1.11",
     "cheerio": "1.2.0",
